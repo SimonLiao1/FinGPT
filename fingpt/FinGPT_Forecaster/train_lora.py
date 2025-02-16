@@ -44,7 +44,7 @@ class GenerationEvalCallback(TrainerCallback):
             
         if state.is_local_process_zero:
             model = kwargs['model']
-            tokenizer = kwargs['tokenizer']
+            tokenizer = kwargs['processing_class']
             generated_texts, reference_texts = [], []
 
             for feature in tqdm(self.eval_dataset):
@@ -124,7 +124,7 @@ def main(args):
     formatted_time = current_time.strftime('%Y%m%d%H%M')
     
     training_args = TrainingArguments(
-        output_dir=f'finetuned_models/{args.run_name}_{formatted_time}', # 保存位置
+        output_dir=f'fingpt-forecaster_dow30_llama2-7b_lora/{args.run_name}_{formatted_time}', # 保存位置
         logging_steps=args.log_interval,
         num_train_epochs=args.num_epochs,
         per_device_train_batch_size=args.batch_size,
@@ -201,7 +201,7 @@ if __name__ == "__main__":
     parser.add_argument("--run_name", default='local-test', type=str)
     parser.add_argument("--dataset", required=True, type=str)
     parser.add_argument("--test_dataset", type=str)
-    parser.add_argument("--base_model", required=True, type=str, choices=['chatglm2', 'llama2'])
+    parser.add_argument("--base_model", required=True, type=str, choices=['chatglm2', 'llama2','llama3'])
     parser.add_argument("--max_length", default=512, type=int)
     parser.add_argument("--batch_size", default=4, type=int, help="The train batch size per device")
     parser.add_argument("--learning_rate", default=1e-4, type=float, help="The learning rate")

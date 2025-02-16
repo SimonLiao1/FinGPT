@@ -22,6 +22,9 @@ def main(args):
     if index_name == "dow":
         index_name = "DOW-30"
         index = DOW_30
+    elif index_name == "Nasdaq":
+        index_name = "NASDAQ-100"
+        index = NASDAQ-100
     elif index_name == "euro":
         index_name = "EURO-STOXX-50"
         index = EURO_STOXX_50
@@ -33,6 +36,7 @@ def main(args):
         raise ValueError("Invalid index name")
     
     data_dir = f"./data/{index_name}_{start_date}_{end_date}"
+    #data_dir= './data/DOW-30_2022-12-31_2023-12-31'
     os.makedirs(data_dir, exist_ok=True)
     
     # Acquire data
@@ -58,7 +62,7 @@ def main(args):
 if __name__ == "__main__":
 
     ap = argparse.ArgumentParser()
-    ap.add_argument("--index_name", default="crypto", choices=["dow", "euro", "crypto"], help="index name")
+    ap.add_argument("--index_name", default="dow", choices=["dow", "Nasdaq","euro", "crypto"], help="index name")
     ap.add_argument("--start_date", default="2022-12-31", help="start date")
     ap.add_argument("--end_date", default="2023-12-31", help="end date")
     ap.add_argument("--min_past_weeks", default=1, help="min past weeks")
